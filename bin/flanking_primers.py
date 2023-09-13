@@ -29,7 +29,7 @@ def cli():
         default=150
     )
     parser.add_argument(
-        '-wd', '--working-dir', action='store',
+        '-w', '--workingdir', action='store',
         help='path to working directory to store intermediate results',
         default='workingdir'
     )
@@ -47,8 +47,8 @@ def cli():
     args = vars(parser.parse_args())
     
     
-    if not os.path.exists(args['wd']):
-        os.makedirs(args['wd'])
+    if not os.path.exists(args['workingdir']):
+        os.makedirs(args['workingdir'])
     else:
         print('working directory already exists. Exiting...')
         pass
@@ -57,13 +57,13 @@ def cli():
     Entrez.api_key = args['api']
     Entrez.email = args['email']
     
-    fasta = Parser.fasta_to_dict(args['i'])
-    RunBlast.retrieve_contigs(fasta, f'{args["wd"]}/tmp.fasta')
-    RunBlast.makedb(f'{args["wd"]}/tmp.fasta')
-    RunBlast.run_blast(args['i'], f'{args["wd"]}/tmp.fasta')
-    indexes = Parser.blast(f"{args['wd']}/result.txt", fasta)
-    slices = Parser.slice_sequences(f'{args["wd"]}/tmp.fasta', indexes)
-    Parser.write_flanking(slices, args['o'])
+    fasta = Parser.fasta_to_dict(args['input'])
+    RunBlast.retrieve_contigs(fasta, f'{args["workingdir"]}/tmp.fasta')
+    RunBlast.makedb(f'{args["workingdir"]}/tmp.fasta')
+    RunBlast.run_blast(args['input'], f'{args["workingdir"]}/tmp.fasta')
+    indexes = Parser.blast(f"{args['workingdir']}/result.txt", fasta)
+    slices = Parser.slice_sequences(f'{args["workingdir"]}/tmp.fasta', indexes)
+    Parser.write_flanking(slices, args['output'])
 
 
 
