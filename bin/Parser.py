@@ -1,6 +1,7 @@
-from Bio import SeqIO
-from Bio import Entrez
 import csv
+
+from Bio import SeqIO
+
 
 
 def fasta_to_dict(fasta: str) -> dict:
@@ -38,16 +39,18 @@ def slice_sequences(fasta: str, indexes: dict) -> dict:
             if end > len(str(record.seq)):
                 end = len(seq)
             seq = str(record.seq)[begin:end]
+            # inf sliced string is not len(0), write to dict
             if not len(seq) == 0:
                 seqs[id] = seq
     return seqs
 
 
-def write_flanking(sliced_seqs: dict):
+def write_flanking(sliced_seqs: dict, outfile: str):
     """write fasta with new sequences
 
     Args:
         sliced_seqs (dict): {ids:(begin, end)}
+        outfile (str): path to output file
     """
     with open("out.fasta", "w") as o:
         for k, v in sliced_seqs.items():
@@ -63,6 +66,8 @@ def blast(blast_result: str, fasta_dict: dict) -> dict:
             length = q length
             mismatch = 0
             gaps = 0
+        
+        Flanking regions are included by taking start - 300 and end + 300. 
 
     Args:
         blast_result (str): path to blast results

@@ -1,9 +1,11 @@
-import subprocess
-from Bio import Entrez
 import time
+import subprocess
+
+from Bio import Entrez
 
 
-def retrieve_contigs(fasta_dict: dict) -> None:
+
+def retrieve_contigs(fasta_dict: dict, outfile) -> None:
     """download full contigs from ids in dict
 
     Args:
@@ -17,7 +19,7 @@ def retrieve_contigs(fasta_dict: dict) -> None:
             time.sleep(20)
             handle = Entrez.efetch(db="nucleotide", id=id.split(":")[0], retmode="xml")
         record = Entrez.read(handle)
-        with open("tmp.fasta", "a") as out:
+        with open(outfile, "a") as out:
             out.write(f">{id}\n{record[0]['GBSeq_sequence']}\n")
 
 
