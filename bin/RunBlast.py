@@ -51,7 +51,7 @@ def makedb(infile: str):
         print(e.stderr)
 
 
-def run_blast(q: str, d: str):
+def run_blast(q: str, d: str, wd: str):
     """run blast
 
     Args:
@@ -65,7 +65,7 @@ def run_blast(q: str, d: str):
         "-db",
         d,  # Replace with your BLAST database file.
         "-out",
-        "result.txt",  # Specify the output file.
+        f"{wd}/result.txt",  # Specify the output file.
         "-evalue",
         "1e-5",  # Set the E-value threshold.
         "-outfmt",

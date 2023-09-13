@@ -58,7 +58,7 @@ def write_flanking(sliced_seqs: dict, outfile: str):
             o.write(f"{v}\n")
 
 
-def blast(blast_result: str, fasta_dict: dict) -> dict:
+def blast(blast_result: str, fasta_dict: dict, flank: int) -> dict:
     """parse blast results and extract indexes of hits that meet the following requirements:
 
             qid = sid
@@ -90,11 +90,12 @@ def blast(blast_result: str, fasta_dict: dict) -> dict:
                 and int(line[4]) == 0
                 and int(line[5]) == 0
             ):
-                sstart = int(line[8]) - 300
+                sstart = int(line[8]) - int(flank)
                 if sstart < 0:
                     sstart = 0
-                ssend = int(line[9]) + 300
+                ssend = int(line[9]) + int(flank)
                 indexes[qid] = (sstart, ssend)
             else:
                 print(f"{qid} did not satisfy requirements")
+
     return indexes
