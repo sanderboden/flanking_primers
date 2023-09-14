@@ -12,7 +12,7 @@ import RunBlast
 
 def cli():
     parser = argparse.ArgumentParser(
-        prog='flanking-seq',
+        prog='flanking-primers',
         description='extend DNA sequences with flanking regions',
         epilog='Created by Sander Boden (s.boden1@avans.nl)'
     )
