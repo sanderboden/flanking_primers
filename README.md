@@ -23,7 +23,7 @@ after running the script, deactivate the environment: `deactivate`
 
 ```bash
 python3 bin/flanking_primers.py -h
-usage: flanking-seq [-h] [-i INPUT] [-o OUTPUT] [-l LENGTH] [-wd WORKING_DIR] --api API --email EMAIL
+usage: flanking-primers [-h] [-i INPUT] [-o OUTPUT] [-l LENGTH] [-wd WORKING_DIR] --api API --email EMAIL
 
 extend DNA sequences with flanking regions
 
